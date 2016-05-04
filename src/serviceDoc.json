@@ -1,0 +1,105 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.1.0",
+        "title": "HoS task controller",
+        "description": "Controlling servines and instances running in HoS environment\n"
+    },
+    "host": "test.com",
+    "basePath": "/ctrlr",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "securitytoken": {
+            "type": "basic",
+            "description": "registeredUserId:token"
+        }
+    },
+    "paths": {
+        "/tasks": {
+            "get": {
+                "security": [
+                    {
+                        "securitytoken": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "docincluded",
+                        "in": "query",
+                        "description": "true if the documentation of each service and general doc is required in swagger json format",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of all running tasks in HoS env",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "#/definitions/Service"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Instance": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "type": "string"
+                },
+                "CreateOn": {
+                    "type": "string"
+                },
+                "HostName": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                }
+            }
+        },
+        "Service": {
+            "type": "object",
+            "properties": {
+                "instances": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Instance"
+                    }
+                },
+                "messages": {
+                    "type": "number"
+                },
+                "messages_details": {
+                    "type": "string"
+                },
+                "messages_ready": {
+                    "type": "number"
+                },
+                "messages_ready_details": {
+                    "type": "string"
+                },
+                "messages_unacknowledged": {
+                    "type": "number"
+                },
+                "messages_unacknowledged_details": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
