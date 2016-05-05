@@ -4,7 +4,8 @@
   "description": "Controlling servines and instances running in HoS environment.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,7 @@
     "node-uuid": "^1.4.7",
     "path": "^0.12.7",
     "request-promise": "^2.0.1",
-    "swagger-merge": "0.0.1"
+    "swagger-merge": "0.1.1"
   },
   "devDependencies": {
     "coffee-script": "^1.10.0",

@@ -18,7 +18,13 @@ getSwaggers = (msg, hos, services)->
         docFinished = ()=>
             counter = counter + 1
             if counter is totalNum
-                services.doc = SwaggerMerge.merge(swaggers)
+                info =
+                    version: "0.0.1",
+                    title: "HoS controller rout documentation",
+                    description: "Documentation of all the routs and services available in HoS environment\n"
+
+                services.doc = SwaggerMerge.merge(swaggers , info, '/', 'localhost')
+
                 fullfil(services)
 
         for serviceName in Object.keys(services)
