@@ -9,7 +9,7 @@ totalNumberOfInstances = (services)->
             totalNum = totalNum + 1
     return totalNum
 
-getSwaggers = (msg, hos, services)->
+getSwaggers = (msg, hos, services, host)->
     new Promise (fullfil, reject)->
         swaggers = []
         counter = 0
@@ -23,7 +23,8 @@ getSwaggers = (msg, hos, services)->
                     title: "HoS controller rout documentation",
                     description: "Documentation of all the routs and services available in HoS environment\n"
 
-                services.doc = SwaggerMerge.merge(swaggers , info, '/', 'localhost')
+                console.log host
+                services.doc = SwaggerMerge.merge(swaggers , info, '/', host ? 'localhost')
 
                 fullfil(services)
 
@@ -48,7 +49,7 @@ module.exports =
         HoSQueues.now()
         .then (services)=>
             if msg.properties.headers.query and msg.properties.headers.query.docincluded and msg.properties.headers.query.docincluded is true
-                getSwaggers(msg, hos, services).then (sws)=> msg.reply(sws)
+                getSwaggers(msg, hos, services, msg.properties.headers.query.host).then (sws)=> msg.reply(sws)
             else
                 msg.reply(services)
         .catch (e)=> msg.reject(e)
