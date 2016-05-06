@@ -23,7 +23,6 @@ getSwaggers = (msg, hos, services, host)->
                     title: "HoS controller rout documentation",
                     description: "Documentation of all the routs and services available in HoS environment\n"
 
-                console.log host
                 services.doc = SwaggerMerge.merge(swaggers , info, '/', host ? 'localhost')
 
                 fullfil(services)
