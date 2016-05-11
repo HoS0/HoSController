@@ -36,9 +36,14 @@ getSwaggers = (msg, hos, services, host)->
                 else
                     p = hos.sendMessage({} , service.address, {task: 'contract', method: 'get'})
                     p.then (contract)=>
-                        services[serviceName].instances[services[serviceName].instances.indexOf(service)].contract = contract
-                        if contract.serviceDoc and contract.serviceDoc.paths
-                            swaggers.push contract.serviceDoc
+                        try
+                            services[serviceName].instances[services[serviceName].instances.indexOf(service)].contract = contract
+                            if contract.serviceDoc and contract.serviceDoc.paths
+                                swaggers.push contract.serviceDoc
+
+                        catch error
+                            # ignore
+
                         docFinished()
                     p.catch (e)=>
                         docFinished()
