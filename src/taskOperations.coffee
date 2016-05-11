@@ -37,7 +37,8 @@ getSwaggers = (msg, hos, services, host)->
                     p = hos.sendMessage({} , service.address, {task: 'contract', method: 'get'})
                     p.then (contract)=>
                         try
-                            services[serviceName].instances[services[serviceName].instances.indexOf(service)].contract = contract
+                            name = service.address.split('.')[0]
+                            services[name].instances[services[name].instances.indexOf(service)].contract = contract
                             if contract.serviceDoc and contract.serviceDoc.paths
                                 swaggers.push contract.serviceDoc
 
